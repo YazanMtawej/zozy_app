@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zozy/core/constants/app_color.dart';
 
-
 class OnboardingPage extends StatelessWidget {
   final String title;
   final String subtitle;
@@ -19,7 +18,11 @@ class OnboardingPage extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [AppColors.primaryDark, AppColors.primaryMid, AppColors.primaryLight],
+          colors: [
+            AppColors.primaryDark,
+            AppColors.primaryMid,
+            AppColors.primaryLight,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -28,7 +31,15 @@ class OnboardingPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // صورة رئيسية
-          Image.asset(image, height: 250, fit: BoxFit.contain),
+          Flexible(
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 8,color: AppColors.accentGold),
+              ),
+              child: Image.asset(image, height: 270, fit: BoxFit.contain),
+            ),
+          ),
 
           const SizedBox(height: 40),
 

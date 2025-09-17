@@ -5,7 +5,6 @@ import 'package:zozy/Features/home/view/widgets/task_item.dart';
 import 'package:zozy/Features/home/view_model/home_viewmodel.dart';
 import '../../../core/constants/app_color.dart';
 
-
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
@@ -30,14 +29,34 @@ class HomeView extends StatelessWidget {
             ),
             body: viewModel.tasks.isEmpty
                 ? const EmptyState()
-                : ListView.builder(
-                    itemCount: viewModel.tasks.length,
-                    itemBuilder: (context, index) {
-                      return TaskItem(
-                        task: viewModel.tasks[index],
-                        onDelete: () => viewModel.removeTask(index),
-                      );
-                    },
+                : Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          
+                          AppColors.primaryMid,
+                          AppColors.primaryLight,
+                          AppColors.primaryDark,
+                          AppColors.primaryMid,
+                          AppColors.primaryLight,
+                          AppColors.primaryDark,
+                          AppColors.primaryLight,
+
+                          AppColors.accentGold,
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
+                    child: ListView.builder(
+                      itemCount: viewModel.tasks.length,
+                      itemBuilder: (context, index) {
+                        return TaskItem(
+                          task: viewModel.tasks[index],
+                          onDelete: () => viewModel.removeTask(index),
+                        );
+                      },
+                    ),
                   ),
             floatingActionButton: FloatingActionButton(
               backgroundColor: AppColors.accentGold,
@@ -81,7 +100,10 @@ class HomeView extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text("Cancel", style: TextStyle(color: AppColors.textLight)),
+            child: const Text(
+              "Cancel",
+              style: TextStyle(color: AppColors.textLight),
+            ),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(

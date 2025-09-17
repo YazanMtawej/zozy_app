@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zozy/Features/home/view/home_view.dart';
+import 'package:zozy/Features/main/view/main_view.dart';
 import 'package:zozy/Features/onboarding/view/widgets/onboarding_indicator.dart';
 import 'package:zozy/Features/onboarding/view/widgets/onboarding_page.dart';
 import 'package:zozy/Features/onboarding/view_model/onboarding_viewmodel.dart';
@@ -26,7 +26,7 @@ class OnboardingView extends StatelessWidget {
                       title: "Welcome 👋",
                       subtitle:
                           "Your all-in-one task manager to stay organized and productive.",
-                      image: "assets/zezo/1.jpg",
+                      image: "assets/zezo/4.jpg",
                     ),
                     OnboardingPage(
                       title: "Plan with Ease 📝",
@@ -73,7 +73,7 @@ class OnboardingView extends StatelessWidget {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => const HomeView(),
+                                builder: (_) => const MainView(),
                               ),
                             );
                           }

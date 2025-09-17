@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "842492779400",
+    "project_id": "zozy-41b7b",
+    "storage_bucket": "zozy-41b7b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842492779400:android:4ab15bd37793dc2f02783d",
+        "android_client_info": {
+          "package_name": "com.example.zozy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD64Xe26-Z1aUYAVUF3FbKNrxOrhqQAkt0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

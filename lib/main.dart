@@ -1,10 +1,15 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:zozy/splash_view.dart';
+import 'package:zozy/Features/onboarding/view/splash_view.dart';
 
 void main() {
-  runApp(DevicePreview(enabled: !kReleaseMode, builder:  (context) =>const ZezoApp()));
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => const ZezoApp(),
+    ),
+  );
 }
 
 class ZezoApp extends StatelessWidget {
@@ -15,4 +20,3 @@ class ZezoApp extends StatelessWidget {
     return MaterialApp(debugShowCheckedModeBanner: false, home: SplashView());
   }
 }
-
