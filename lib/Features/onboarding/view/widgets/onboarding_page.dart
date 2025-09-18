@@ -31,13 +31,47 @@ class OnboardingPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // صورة رئيسية
-          Flexible(
+          Center(
             child: Container(
+              padding: const EdgeInsets.all(
+                16,
+              ), // مسافة داخلية تعطي تنفس للصورة
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(width: 8,color: AppColors.accentGold),
+                gradient: LinearGradient(
+                  // جمالية إضافية مع تدرج
+                  colors: [
+                    AppColors.primaryMid,
+                    AppColors.dotActive,
+                    AppColors.dotInactive,
+                    AppColors.primaryLight,
+                    AppColors.primaryMid,
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                border: Border.all(width: 6, color: AppColors.accentGold),
+                boxShadow: [
+                  // ظل ناعم للصورة
+                  BoxShadow(
+                    color: AppColors.accentGold.withAlpha(600),
+                    blurRadius: 15,
+                    spreadRadius: 2,
+                    offset: const Offset(5, 8),
+                  ),
+                ],
               ),
-              child: Image.asset(image, height: 270, fit: BoxFit.contain),
+              child: ClipOval(
+                // قص الصورة لتكون دائرية بالكامل
+                child: Image.asset(
+                  image,
+                  fit: BoxFit.fill, // يغطي الدائرة بدون فراغات
+                  width:
+                      MediaQuery.of(context).size.width *
+                      0.72, // مرونة على كل الشاشات
+                  height: MediaQuery.of(context).size.width * 0.72,
+                ),
+              ),
             ),
           ),
 

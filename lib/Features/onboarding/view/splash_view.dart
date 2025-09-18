@@ -52,9 +52,9 @@ class _SplashViewState extends State<SplashView>
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              AppColors.gradientStart,
-              AppColors.gradientMiddle,
-              AppColors.gradientEnd,
+              AppColors.primaryDark,
+              AppColors.primaryMid,
+              AppColors.primaryLight,
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -109,7 +109,7 @@ class _SplashViewState extends State<SplashView>
                     textStyle: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w400,
-                      color: AppColors.textSecondary,
+                      color: AppColors.textLight,
                       letterSpacing: 1.2,
                     ),
                     speed: const Duration(milliseconds: 80),

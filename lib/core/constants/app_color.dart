@@ -8,21 +8,13 @@ class AppColors {
   
 
   // ألوان إضافية
-  static const Color accentGold = Color(0xFFD4AF37); // ذهبي للفخامة
+  static const Color accentGold = Color(0xFFD4AF37);  
   static const Color textLight = Colors.white70;
   static const Color textWhite = Colors.white;
   static const Color white = Colors.white;
   static const Color grey = Colors.grey;
   static const Color white70 = Colors.white70;
-  // 🎨 ألوان الخلفية
-  static const Color gradientStart = Color(0xFF0F2027);
-  static const Color gradientMiddle = Color(0xFF203A43);
-  static const Color gradientEnd = Color(0xFF2C5364);
-
-  // ✨ ألوان النصوص
-  static const Color textPrimary = Colors.white;
-  static const Color textSecondary = Colors.white70;
-
+ 
   // 🌈 ألوان أنيميشن الكتابة
   static const List<Color> colorizeTextColors = [
     Colors.white,

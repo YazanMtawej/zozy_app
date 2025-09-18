@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:zozy/core/constants/app_color.dart';
+
 
 class ShopPage extends StatelessWidget {
   const ShopPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xFF121212),
-      child: const Center(
+    return SafeArea(
+      child: Center(
         child: Text(
-          "🛒 Shop",
+          "Shop Our Products",
           style: TextStyle(
-            fontSize: 26,
+            fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: Color(0xFFFFD700),
+            color: AppColors.accentGold,
           ),
         ),
       ),
