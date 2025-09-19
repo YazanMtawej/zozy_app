@@ -1,24 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import '../model/task_model.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  final List<String> _tasks = [];
+  late final Box<TaskModel> _taskBox;
 
-  List<String> get tasks => _tasks;
+  HomeViewModel() {
+    _taskBox = Hive.box<TaskModel>('tasks'); // فتح Box موجود مسبقاً
+  }
 
-  void addTask(String task) {
-    if (task.isNotEmpty) {
-      _tasks.add(task);
+  List<TaskModel> get tasks => _taskBox.values.toList();
+
+  void addTask(TaskModel task) {
+    _taskBox.add(task);
+    notifyListeners();
+  }
+
+  void removeTask(int index) {
+    _taskBox.deleteAt(index);
+    notifyListeners();
+  }
+
+  void toggleTaskCompletion(int index) {
+    final task = _taskBox.getAt(index);
+    if (task != null) {
+      task.isCompleted = !task.isCompleted;
+      task.save(); // تحديث المهمة في الـ Box
       notifyListeners();
     }
   }
 
-  void removeTask(int index) {
-    _tasks.removeAt(index);
+  void updateTask(int index, TaskModel updatedTask) {
+    _taskBox.putAt(index, updatedTask);
     notifyListeners();
   }
 
   void clearTasks() {
-    _tasks.clear();
+    _taskBox.clear();
     notifyListeners();
   }
 }

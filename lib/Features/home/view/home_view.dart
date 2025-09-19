@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:zozy/Features/home/model/task_model.dart';
 import 'package:zozy/Features/home/view/widgets/empty_state.dart';
 import 'package:zozy/Features/home/view/widgets/task_item.dart';
 import 'package:zozy/Features/home/view_model/home_viewmodel.dart';
@@ -26,14 +27,24 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               centerTitle: true,
+              actions: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.delete_sweep,
+                    color: AppColors.accentGold,
+                  ),
+                  onPressed: () => _confirmClearTasks(context, viewModel),
+                  tooltip: "Clear All Tasks",
+                ),
+              ],
             ),
+
             body: viewModel.tasks.isEmpty
                 ? const EmptyState()
                 : Container(
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          
                           AppColors.primaryMid,
                           AppColors.primaryLight,
                           AppColors.primaryDark,
@@ -51,8 +62,10 @@ class HomeView extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: viewModel.tasks.length,
                       itemBuilder: (context, index) {
+                        final task = viewModel.tasks[index];
                         return TaskItem(
-                          task: viewModel.tasks[index],
+                          task: task,
+                          onToggle: () => viewModel.toggleTaskCompletion(index),
                           onDelete: () => viewModel.removeTask(index),
                         );
                       },
@@ -71,54 +84,162 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  void _showAddTaskDialog(BuildContext context, HomeViewModel viewModel) {
-    final TextEditingController controller = TextEditingController();
-
+  void _confirmClearTasks(BuildContext context, HomeViewModel viewModel) {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
         backgroundColor: AppColors.primaryMid,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         title: const Text(
-          "Add Task",
-          style: TextStyle(color: AppColors.textWhite),
-        ),
-        content: TextField(
-          controller: controller,
-          style: const TextStyle(color: AppColors.textWhite),
-          decoration: const InputDecoration(
-            hintText: "Enter your task",
-            hintStyle: TextStyle(color: AppColors.textLight),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.accentGold),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.accentGold),
-            ),
+          "Confirm",
+          style: TextStyle(
+            color: AppColors.textWhite,
+            fontWeight: FontWeight.bold,
           ),
+        ),
+        content: const Text(
+          "Are you sure you want to delete all tasks?",
+          style: TextStyle(color: AppColors.textLight),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: const Text(
               "Cancel",
-              style: TextStyle(color: AppColors.textLight),
+              style: TextStyle(color: AppColors.textWhite),
             ),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.accentGold,
             ),
-            onPressed: () {
-              viewModel.addTask(controller.text);
-              Navigator.pop(context);
+            onPressed: () async {
+              Navigator.pop(context); // أغلق الـ Dialog أولاً
+              await Future.delayed(
+                const Duration(milliseconds: 50),
+              ); // اسمح للـ UI بالتحديث
+              viewModel.clearTasks();
             },
             child: const Text(
-              "Add",
+              "Delete All",
               style: TextStyle(color: AppColors.primaryDark),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _showAddTaskDialog(BuildContext context, HomeViewModel viewModel) {
+    final titleCtrl = TextEditingController();
+    final descCtrl = TextEditingController();
+    DateTime dueDate = DateTime.now();
+    int priority = 2;
+
+    showDialog(
+      context: context,
+      builder: (_) => StatefulBuilder(
+        builder: (context, setState) {
+          return AlertDialog(
+            backgroundColor: AppColors.primaryMid,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            title: const Text(
+              "Add Task",
+              style: TextStyle(color: AppColors.textWhite),
+            ),
+            content: SingleChildScrollView(
+              child: Column(
+                children: [
+                  TextField(
+                    controller: titleCtrl,
+                    style: const TextStyle(color: AppColors.textWhite),
+                    decoration: const InputDecoration(
+                      hintText: "Title",
+                      hintStyle: TextStyle(color: AppColors.textLight),
+                    ),
+                  ),
+                  TextField(
+                    controller: descCtrl,
+                    style: const TextStyle(color: AppColors.textWhite),
+                    decoration: const InputDecoration(
+                      hintText: "Description",
+                      hintStyle: TextStyle(color: AppColors.textLight),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      const Text(
+                        "Priority:",
+                        style: TextStyle(color: AppColors.textWhite),
+                      ),
+                      const SizedBox(width: 10),
+                      DropdownButton<int>(
+                        dropdownColor: AppColors.primaryDark,
+                        value: priority,
+                        items: const [
+                          DropdownMenuItem(
+                            value: 1,
+                            child: Text(
+                              "High",
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 2,
+                            child: Text(
+                              "Medium",
+                              style: TextStyle(color: Colors.orange),
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 3,
+                            child: Text(
+                              "Low",
+                              style: TextStyle(color: Colors.green),
+                            ),
+                          ),
+                        ],
+                        onChanged: (val) => setState(() => priority = val!),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text(
+                  "Cancel",
+                  style: TextStyle(color: AppColors.textLight),
+                ),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.accentGold,
+                ),
+                onPressed: () {
+                  viewModel.addTask(
+                    TaskModel(
+                      title: titleCtrl.text,
+                      description: descCtrl.text,
+                      dueDate: dueDate,
+                      priority: priority,
+                    ),
+                  );
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  "Add",
+                  style: TextStyle(color: AppColors.primaryDark),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

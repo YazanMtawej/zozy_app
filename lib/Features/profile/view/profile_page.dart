@@ -82,34 +82,30 @@ class ProfilePage extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width*0.33,
-                            height: MediaQuery.of(context).size.width*0.7,
-                            child: Lottie.asset(
-                              "assets/animations/PUDGY.json",
-                              fit: BoxFit.fill,
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.43,
+                              height: MediaQuery.of(context).size.width * 0.7,
+                              child: Lottie.asset(
+                                "assets/animations/search for employee.json",
+                                fit: BoxFit.fill,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width*0.33,
-                            height: MediaQuery.of(context).size.width*0.7,
-                            child: Lottie.asset(
-                              "assets/animations/PUDGY.json",
-                              fit: BoxFit.fill,
+                            const SizedBox(width: 10),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.43,
+                              height: MediaQuery.of(context).size.width * 0.7,
+                              child: Lottie.asset(
+                                "assets/animations/Mobile App Showcase.json",
+                                fit: BoxFit.fill,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width*0.33,
-                            height: MediaQuery.of(context).size.width*0.7,
-                            child: Lottie.asset(
-                              "assets/animations/PUDGY.json",
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
